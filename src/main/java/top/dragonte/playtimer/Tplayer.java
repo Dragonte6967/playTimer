@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
-public class Tplayer {
+public  class Tplayer {
     public Player player;
     public long loginTime;
     public long logoutTime;
