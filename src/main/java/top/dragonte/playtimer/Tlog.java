@@ -21,14 +21,8 @@ public class Tlog {
 
         if(!logs.exists()){
             try{
-                if(!logs.getParentFile().mkdirs()){
-                    Bukkit.getLogger().warning("Error: Can not create dir: "+logs.getParentFile());
-                    return;
-                }
-                if (!logs.createNewFile()) {
-                    Bukkit.getLogger().warning("Error: Can not create file: "+fileName+".log");
-                    return;
-                }
+               logs.getParentFile().mkdirs();
+               logs.createNewFile();
             }catch(Exception e){
                 Bukkit.getLogger().warning("Error: "+e);
             }
