@@ -1,0 +1,4 @@
+name: playtimer
+version: '1.0-RELEASE'
+main: top.dragonte.playtimer.Playtimer
+api-version: '1.21'
