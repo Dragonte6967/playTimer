@@ -1,8 +1,11 @@
 package top.dragonte.playtimer;
 
+import org.bukkit.Bukkit;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class Tlog {
     Tplayer player;
@@ -18,20 +21,34 @@ public class Tlog {
 
         if(!logs.exists()){
             try{
-                logs.getParentFile().mkdirs();
-                logs.createNewFile();
+                if(!logs.getParentFile().mkdirs()){
+                    Bukkit.getLogger().warning("Error: Can not create dir: "+logs.getParentFile());
+                    return;
+                }
+                if (!logs.createNewFile()) {
+                    Bukkit.getLogger().warning("Error: Can not create file: "+fileName+".log");
+                    return;
+                }
             }catch(Exception e){
-                e.printStackTrace();
+                Bukkit.getLogger().warning("Error: "+e);
             }
         }
 
-        String logContent=player.getName()+" "+player.stayMinutes()+" "+" "+sdf.format(player.loginTime)+" "+sdf.format(player.logoutTime)+" "+player.getIP()+"\n";
+        StringBuilder logContent=new StringBuilder();
+
+
+        logContent.append(player.getName()).append(" ")
+                .append(player.stayMinutes()).append(" ")
+                .append(sdf.format(player.loginTime)).append(" ")
+                .append(sdf.format(player.logoutTime)).append(" ")
+                .append(player.getIP()).append(" ")
+                .append("\n");
         try{
             java.io.FileWriter fw=new java.io.FileWriter(dir,true);
-            fw.write(logContent);
+            fw.write(logContent.toString());
             fw.close();
         }catch(Exception e){
-            e.printStackTrace();
+            Bukkit.getLogger().warning("Error: "+e);
         }
     }
 }
